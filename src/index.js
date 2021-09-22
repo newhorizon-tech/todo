@@ -20,6 +20,7 @@ tasks.push(task1,task2);
 
 const displayList = () => {
   const listElement = document.querySelector("#list");
+  listElement.innerHTML = '';
   tasks.forEach((task) => {
      const taskElement = document.createElement("li");
      taskElement.textContent = task.description;
