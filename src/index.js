@@ -16,15 +16,22 @@ const task2 = {
   index: 2
 }
 
-tasks.push(task1,task2);
+tasks.push(task1, task2);
 
 const displayList = () => {
   const listElement = document.querySelector("#list");
   listElement.innerHTML = '';
   tasks.forEach((task) => {
-     const taskElement = document.createElement("li");
-     taskElement.textContent = task.description;
-     listElement.append(taskElement);
+    const taskElement = document.createElement("li");
+
+    const check = document.createElement("input");
+    check.type = "checkbox";
+
+    const desc = document.createElement("span")
+    desc.textContent = task.description;
+
+    taskElement.append(check, desc)
+    listElement.append(taskElement);
   })
 }
 
