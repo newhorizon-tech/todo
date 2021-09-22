@@ -1,23 +1,23 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple todo list project",
   "main": "webpack.config.js",
   "scripts": {
     "build": "npx webpack",
-    "start": "npx webpack serve"
+    "start": "npx webpack serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/newhorizon-tech/webpack-boilerplate.git"
+    "url": "git+https://github.com/newhorizon-tech/todo.git"
   },
-  "keywords": [],
   "author": "Alaukik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/newhorizon-tech/webpack-boilerplate/issues"
+    "url": "https://github.com/newhorizon-tech/todo/issues"
   },
-  "homepage": "https://github.com/newhorizon-tech/webpack-boilerplate#readme",
+  "homepage": "https://github.com/newhorizon-tech/todo#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.3.0",
@@ -25,7 +25,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2",
     "html-webpack-plugin": "^5.3.2",
-    "style-loader": "^3.2.1",
+    "style-loader": "^3.3.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-csstree-validator": "^1.9.0",
