@@ -17,3 +17,14 @@ const task2 = {
 }
 
 tasks.push(task1,task2);
+
+const displayList = () => {
+  const listElement = document.querySelector("#list");
+  tasks.forEach((task) => {
+     const taskElement = document.createElement("li");
+     taskElement.textContent = task.description;
+     listElement.append(taskElement);
+  })
+}
+
+displayList();
