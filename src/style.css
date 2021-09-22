@@ -1,12 +1,10 @@
-$custom-color: #f6f6f6;
-
 * {
   margin: 0;
   padding: 0;
 }
 
 html {
-  background: $custom-color;
+  background: #f6f6f6;
 }
 
 h1 {
@@ -26,7 +24,6 @@ ul {
   margin: 0;
 }
 
-
 li {
   font-size: smaller;
   list-style-type: none;
@@ -38,14 +35,16 @@ li {
 
 #todo-input {
   padding: 0;
-  input {
-    border: 0;
-    width: 496px;
-    height: 100%;
-    padding: 5px 0 5px 2px;
-  }
+}
+#todo-input input {
+  border: 0;
+  width: 496px;
+  height: 100%;
+  padding: 5px 0 5px 2px;
 }
 
 span {
   margin-left: 5px;
 }
+
+/*# sourceMappingURL=style.css.map */
