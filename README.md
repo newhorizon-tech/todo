@@ -1,7 +1,5 @@
 # todo
 
-# awesome-books
-
 A simple todo list project
 
 Features
