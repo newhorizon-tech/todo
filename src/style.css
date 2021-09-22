@@ -14,7 +14,7 @@ h1 {
 #main-box {
   background: white;
   width: 500px;
-  border: 1px shadow;
+  border: 1px;
   margin: 4% auto;
 }
 
@@ -36,6 +36,7 @@ li {
 #todo-input {
   padding: 0;
 }
+
 #todo-input input {
   border: 0;
   width: 496px;
@@ -46,5 +47,3 @@ li {
 span {
   margin-left: 5px;
 }
-
-/*# sourceMappingURL=style.css.map */
