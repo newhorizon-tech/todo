@@ -1,28 +1,48 @@
 import './style.css';
 
-import { flip } from './task';
+import {
+  flip,
+} from './task';
 
-const tasks = [];
+let tasks = [];
 
-const task1 = {
-  description: 'Wash the dishes',
-  completed: false,
-  index: 3,
+const initialData = (tasks) => {
+  const task1 = {
+    description: 'Wash the dishes',
+    completed: false,
+    index: 3,
+  };
+
+  const task2 = {
+    description: 'Clean my room',
+    completed: false,
+    index: 1,
+  };
+
+  const task3 = {
+    description: 'Make breakfast',
+    completed: false,
+    index: 2,
+  };
+
+  tasks.push(task1, task2, task3);
+  return tasks;
 };
 
-const task2 = {
-  description: 'Clean my room',
-  completed: false,
-  index: 1,
+const getData = (tasks) => {
+  const data = localStorage.getItem('tasks');
+  if (data != null) {
+    tasks = JSON.parse(data);
+  } else {
+    tasks = initialData([]);
+  }
+  return tasks;
 };
 
-const task3 = {
-  description: 'Make breakfast',
-  completed: false,
-  index: 2,
+const saveData = (tasks) => {
+  console.log(tasks);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
-
-tasks.push(task1, task2, task3);
 
 const displayList = () => {
   tasks.sort((a, b) => a.index - b.index);
@@ -33,10 +53,11 @@ const displayList = () => {
 
     const check = document.createElement('input');
     check.type = 'checkbox';
+    check.checked = task.completed;
 
     check.addEventListener('change', () => {
       tasks[i] = flip(task);
-      console.log(tasks);
+      saveData(tasks);
     });
 
     const desc = document.createElement('span');
@@ -47,4 +68,7 @@ const displayList = () => {
   });
 };
 
-displayList();
+document.addEventListener('DOMContentLoaded', () => {
+  tasks = getData();
+  displayList();
+});
