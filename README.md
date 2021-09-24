@@ -5,12 +5,15 @@ A simple todo list project
 Features
 
 - Display tasks
--  Plain Javascript
+- Add new tasks
+- Remove tasks
+- Edit tasks
+- Store tasks in local storage
 
 ## Built With
 
 - HTML/CSS
-- Javascript
+- Javascript (ES6)
 - Atom
 
 ## Getting Started
