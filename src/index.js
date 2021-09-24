@@ -24,17 +24,18 @@ const saveData = (tasks) => {
 };
 
 const editList = (tasks, task, e) => {
-  const originalDesc = e.target.parentElement.parentElement.querySelector('.description').textContent;
+  const originalDesc = e.target.parentElement.parentElement.querySelector('.description');
 
   const editBox = document.querySelector('#edit-box');
   editBox.classList.remove('display-none');
 
   const editField = document.querySelector('#edit-input');
-  editField.value = originalDesc;
+  editField.value = originalDesc.textContent;
   const saveBtn = document.querySelector('#save-btn');
   saveBtn.addEventListener('click', () => {
     const editField = document.querySelector('#edit-input');
     const input = editField.value;
+    originalDesc.textContent = input;
     tasks = edit(tasks, task, input);
     saveData(tasks);
     editBox.classList.add('display-none');
