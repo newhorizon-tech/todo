@@ -64,11 +64,19 @@ const displayList = () => {
 
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
-    check.checked = task.completed;
+
+    editBtn.addEventListener('click', () => {
+      console.log('Edit');
+    });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
-    check.checked = task.completed;
+
+    deleteBtn.addEventListener('click', () => {
+      tasks = remove(tasks, task);
+      saveData(tasks);
+      displayList();
+    });
 
     const buttons = document.createElement('span');
     buttons.className = 'buttons';
