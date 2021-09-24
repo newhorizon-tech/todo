@@ -1,5 +1,7 @@
 import './style.css';
 
+import { flip } from './task';
+
 const tasks = [];
 
 const task1 = {
@@ -26,11 +28,16 @@ const displayList = () => {
   tasks.sort((a, b) => a.index - b.index);
   const listElement = document.querySelector('#list');
   listElement.innerHTML = '';
-  tasks.forEach((task) => {
+  tasks.forEach((task, i) => {
     const taskElement = document.createElement('li');
 
     const check = document.createElement('input');
     check.type = 'checkbox';
+
+    check.addEventListener('change', () => {
+      tasks[i] = flip(task);
+      console.log(tasks);
+    });
 
     const desc = document.createElement('span');
     desc.textContent = task.description;
