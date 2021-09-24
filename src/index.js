@@ -2,7 +2,9 @@ import './style.css';
 
 import flip from './flip';
 
-import { add, remove, edit } from './actions';
+import {
+  add, remove, edit, clear,
+} from './actions';
 
 let tasks = [];
 
@@ -122,3 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const refreshBtn = document.querySelector('#refresh');
 refreshBtn.addEventListener('click', displayList);
+
+const clearBtn = document.querySelector('#clear-btn');
+clearBtn.addEventListener('click', () => {
+  tasks = clear(tasks);
+  displayList();
+});
