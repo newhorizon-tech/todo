@@ -26,11 +26,11 @@ const remove = (tasks, task) => {
 };
 
 const edit = (tasks, task, desc) => {
-  console.log(task.index);
-  tasks.find((item) => item.index === task.index).description = desc;
-  console.log({
-    tasks,
-    desc,
+  tasks = tasks.map((item) => {
+    if ((item.index === task.index) && (item.description === task.description)) {
+      item.description = desc;
+    }
+    return item;
   });
   return tasks;
 };

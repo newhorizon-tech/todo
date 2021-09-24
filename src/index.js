@@ -8,44 +8,41 @@ import {
 
 let tasks = [];
 
-const initialData = (tasks) => {
-  const task1 = {
-    description: 'Wash the dishes',
-    completed: false,
-    index: 3,
-  };
-
-  const task2 = {
-    description: 'Clean my room',
-    completed: false,
-    index: 1,
-  };
-
-  const task3 = {
-    description: 'Make breakfast',
-    completed: false,
-    index: 2,
-  };
-
-  tasks.push(task1, task2, task3);
-  return tasks;
-};
-
-const getData = (tasks) => {
+const getData = () => {
   const data = localStorage.getItem('tasks');
   if (data != null) {
     tasks = JSON.parse(data);
   } else {
-    tasks = initialData([]);
+    tasks = [];
   }
   return tasks;
 };
 
 const saveData = (tasks) => {
+  tasks.sort((a, b) => a.index - b.index);
   localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
+const editList = (tasks, task, e) => {
+  const originalDesc = e.target.parentElement.parentElement.querySelector('.description').textContent;
+
+  const editBox = document.querySelector('#edit-box');
+  editBox.classList.remove('display-none');
+
+  const editField = document.querySelector('#edit-input');
+  editField.value = originalDesc;
+  const saveBtn = document.querySelector('#save-btn');
+  saveBtn.addEventListener('click', () => {
+    const editField = document.querySelector('#edit-input');
+    const input = editField.value;
+    tasks = edit(tasks, task, input);
+    saveData(tasks);
+    editBox.classList.add('display-none');
+  });
+};
+
 const displayList = () => {
+  getData(tasks);
   tasks.sort((a, b) => a.index - b.index);
   const listElement = document.querySelector('#list');
   listElement.innerHTML = '';
@@ -67,24 +64,11 @@ const displayList = () => {
 
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
+    editBtn.className = 'edit-btn';
 
-    editBtn.addEventListener('click', () => {
-      const originalDesc = task.description;
-      editBtn.classList.add('display-none');
-
-      const editBox = document.querySelector('#edit-box');
-      editBox.classList.remove('display-none');
-
-      const editField = document.querySelector('#edit-input');
-      editField.value = originalDesc;
-      const saveBtn = document.querySelector('#save-btn');
-      saveBtn.addEventListener('click', () => {
-        const editField = document.querySelector('#edit-input');
-        const input = editField.value;
-        tasks = edit(tasks, task, input);
-        editBox.classList.add('display-none');
-        saveData(tasks);
-      });
+    editBtn.addEventListener('click', (e) => {
+      editBtn.disabled = true;
+      editList(tasks, task, e);
     });
 
     const deleteBtn = document.createElement('button');
@@ -123,10 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const refreshBtn = document.querySelector('#refresh');
-refreshBtn.addEventListener('click', displayList);
+refreshBtn.addEventListener('click', () => {
+  saveData(tasks);
+  displayList();
+});
 
 const clearBtn = document.querySelector('#clear-btn');
 clearBtn.addEventListener('click', () => {
   tasks = clear(tasks);
+  saveData(tasks);
   displayList();
 });
