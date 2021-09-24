@@ -1,6 +1,8 @@
 import './style.css';
 
-import flip from './task';
+import flip from './flip';
+
+import { add, remove } from './actions';
 
 let tasks = [];
 
@@ -64,6 +66,15 @@ const displayList = () => {
     listElement.append(taskElement);
   });
 };
+
+const formElement = document.querySelector('#input-field');
+formElement.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    const input = formElement.value;
+    formElement.value = '';
+    add(tasks, input);
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   tasks = getData();
