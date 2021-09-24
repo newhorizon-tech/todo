@@ -1,8 +1,6 @@
 import './style.css';
 
-import {
-  flip,
-} from './task';
+import flip from './task';
 
 let tasks = [];
 
@@ -40,7 +38,6 @@ const getData = (tasks) => {
 };
 
 const saveData = (tasks) => {
-  console.log(tasks);
   localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 

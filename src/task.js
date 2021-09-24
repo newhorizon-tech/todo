@@ -3,4 +3,4 @@ const flip = (task) => {
   return task;
 };
 
-export { flip };
+export default flip;
