@@ -1,36 +1,61 @@
 import './style.css';
 
-const tasks = [];
+import flip from './task';
 
-const task1 = {
-  description: 'Wash the dishes',
-  completed: false,
-  index: 3,
+let tasks = [];
+
+const initialData = (tasks) => {
+  const task1 = {
+    description: 'Wash the dishes',
+    completed: false,
+    index: 3,
+  };
+
+  const task2 = {
+    description: 'Clean my room',
+    completed: false,
+    index: 1,
+  };
+
+  const task3 = {
+    description: 'Make breakfast',
+    completed: false,
+    index: 2,
+  };
+
+  tasks.push(task1, task2, task3);
+  return tasks;
 };
 
-const task2 = {
-  description: 'Clean my room',
-  completed: false,
-  index: 1,
+const getData = (tasks) => {
+  const data = localStorage.getItem('tasks');
+  if (data != null) {
+    tasks = JSON.parse(data);
+  } else {
+    tasks = initialData([]);
+  }
+  return tasks;
 };
 
-const task3 = {
-  description: 'Make breakfast',
-  completed: false,
-  index: 2,
+const saveData = (tasks) => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
-
-tasks.push(task1, task2, task3);
 
 const displayList = () => {
   tasks.sort((a, b) => a.index - b.index);
   const listElement = document.querySelector('#list');
   listElement.innerHTML = '';
-  tasks.forEach((task) => {
+  tasks.forEach((task, i) => {
     const taskElement = document.createElement('li');
 
     const check = document.createElement('input');
     check.type = 'checkbox';
+    check.checked = task.completed;
+
+    check.addEventListener('change', () => {
+      tasks[i] = flip(task);
+      saveData(tasks);
+    });
 
     const desc = document.createElement('span');
     desc.textContent = task.description;
@@ -40,4 +65,7 @@ const displayList = () => {
   });
 };
 
-displayList();
+document.addEventListener('DOMContentLoaded', () => {
+  tasks = getData();
+  displayList();
+});
