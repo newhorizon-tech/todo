@@ -11,7 +11,22 @@ h1 {
   text-align: center;
 }
 
+.display-none {
+  display: none;
+}
+
+.diplay-block {
+  display: block;
+}
+
 #main-box {
+  background: white;
+  width: 500px;
+  border: 1px;
+  margin: 4% auto;
+}
+
+#edit-box {
   background: white;
   width: 500px;
   border: 1px;
@@ -52,10 +67,10 @@ span {
   font-size: smaller;
   margin-left: auto;
   display: flex;
-  width: 125px;
-  justify-content: space-around;
+  justify-content: flex-end;
 }
 
 .buttons button {
+  margin-left: 5px;
   padding: 1px 8px;
 }

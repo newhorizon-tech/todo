@@ -2,7 +2,7 @@ import './style.css';
 
 import flip from './flip';
 
-import { add, remove } from './actions';
+import { add, remove, edit } from './actions';
 
 let tasks = [];
 
@@ -61,12 +61,28 @@ const displayList = () => {
 
     const desc = document.createElement('span');
     desc.textContent = task.description;
+    desc.className = 'description';
 
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
 
     editBtn.addEventListener('click', () => {
-      console.log('Edit');
+      const originalDesc = task.description;
+      editBtn.classList.add('display-none');
+
+      const editBox = document.querySelector('#edit-box');
+      editBox.classList.remove('display-none');
+
+      const editField = document.querySelector('#edit-input');
+      editField.value = originalDesc;
+      const saveBtn = document.querySelector('#save-btn');
+      saveBtn.addEventListener('click', () => {
+        const editField = document.querySelector('#edit-input');
+        const input = editField.value;
+        tasks = edit(tasks, task, input);
+        editBox.classList.add('display-none');
+        saveData(tasks);
+      });
     });
 
     const deleteBtn = document.createElement('button');
@@ -103,3 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
   tasks = getData();
   displayList();
 });
+
+const refreshBtn = document.querySelector('#refresh');
+refreshBtn.addEventListener('click', displayList);

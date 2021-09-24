@@ -10,12 +10,17 @@
 
 <body>
   <ul id="main-box">
-    <li>Todo List</li>
+    <li> <span>Todo List </span> <span class="buttons"><button id="refresh"> Refresh </button> </button><button id="clear-btn"> Clear All Completed </button></span></li>
     <li id="todo-input"> <input type="text" id="input-field"  placeholder="Add to your list"> </li>
       <div id="list">
 
       </div>
   </ul>
+  <ul id="edit-box" class="display-none">
+    <li> Edit Item</li>
+    <li> <input id="edit-input">  <button id="save-btn"> Save </button> </li>
+  </ul>
+
 </body>
 
 </html>
