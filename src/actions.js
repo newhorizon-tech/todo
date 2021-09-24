@@ -1,5 +1,7 @@
-const add = () => {
-  console.log('Add task');
+const add = (tasks, input) => {
+  const task = { description: input, completed: false, index: tasks.length + 1 };
+  tasks.push(task);
+  return tasks;
 };
 
 const remove = () => {

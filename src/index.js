@@ -68,11 +68,14 @@ const displayList = () => {
 };
 
 const formElement = document.querySelector('#input-field');
+
 formElement.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     const input = formElement.value;
     formElement.value = '';
-    add(tasks, input);
+    tasks = add(tasks, input);
+    saveData(tasks);
+    displayList(tasks);
   }
 });
 
