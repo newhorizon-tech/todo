@@ -62,7 +62,19 @@ const displayList = () => {
     const desc = document.createElement('span');
     desc.textContent = task.description;
 
-    taskElement.append(check, desc);
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    check.checked = task.completed;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    check.checked = task.completed;
+
+    const buttons = document.createElement('span');
+    buttons.className = 'buttons';
+    buttons.append(editBtn, deleteBtn);
+
+    taskElement.append(check, desc, buttons);
     listElement.append(taskElement);
   });
 };
