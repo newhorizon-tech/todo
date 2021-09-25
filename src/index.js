@@ -3,7 +3,10 @@ import './style.css';
 import flip from './flip';
 
 import {
-  add, remove, edit, clear,
+  add,
+  remove,
+  edit,
+  clear,
 } from './actions';
 
 let tasks = [];
@@ -42,7 +45,16 @@ const editList = (tasks, task, e) => {
   });
 };
 
+const disableInput = () => {
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach((btn) => {
+    btn.disabled = true;
+  });
+  document.querySelector('#input-field').disabled = true;
+};
+
 const displayList = () => {
+  document.querySelector('#input-field').disabled = false;
   getData(tasks);
   tasks.sort((a, b) => a.index - b.index);
   const listElement = document.querySelector('#list');
@@ -68,7 +80,7 @@ const displayList = () => {
     editBtn.className = 'edit-btn';
 
     editBtn.addEventListener('click', (e) => {
-      editBtn.disabled = true;
+      disableInput();
       editList(tasks, task, e);
     });
 

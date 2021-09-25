@@ -35,8 +35,19 @@ const edit = (tasks, task, desc) => {
   return tasks;
 };
 
+const reorder = (tasks) => {
+  let i = 1;
+  tasks = tasks.map((task) => {
+    task.index = i;
+    i += 1;
+    return task;
+  });
+  return tasks;
+};
+
 const clear = (tasks) => {
   tasks = tasks.filter((item) => !(item.completed));
+  tasks = reorder(tasks);
   return tasks;
 };
 
