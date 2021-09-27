@@ -2,6 +2,8 @@
 
 A simple todo list project
 
+![Todo List](https://user-images.githubusercontent.com/62493636/134872742-d5a86765-5fa6-4771-8a6b-4b9892d5947f.png)
+
 Features
 
 - Display tasks
