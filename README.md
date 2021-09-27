@@ -2,16 +2,25 @@
 
 A simple todo list project
 
+![Todo List](https://user-images.githubusercontent.com/62493636/134872742-d5a86765-5fa6-4771-8a6b-4b9892d5947f.png)
+
 Features
 
 - Display tasks
--  Plain Javascript
+- Add new tasks
+- Remove tasks
+- Edit tasks
+- Store tasks in local storage
 
 ## Built With
 
 - HTML/CSS
-- Javascript
+- Javascript (ES6)
 - Atom
+
+## Live Demo
+
+[To Do List Demo](https://newhorizon-tech.github.io/todo/dist/)
 
 ## Getting Started
 
