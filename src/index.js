@@ -26,6 +26,22 @@ const saveData = (tasks) => {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
+const enableInput = () => {
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach((btn) => {
+    btn.disabled = false;
+  });
+  document.querySelector('#input-field').disabled = false;
+};
+
+const disableInput = () => {
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach((btn) => {
+    btn.disabled = true;
+  });
+  document.querySelector('#input-field').disabled = true;
+};
+
 const editList = (tasks, task, e) => {
   const originalDesc = e.target.parentElement.parentElement.querySelector('.description');
 
@@ -48,15 +64,8 @@ const editList = (tasks, task, e) => {
     saveData(tasks);
     saveBtn.remove();
     originalButtons.classList.remove('display-none');
+    enableInput();
   });
-};
-
-const disableInput = () => {
-  const editBtns = document.querySelectorAll('.edit-btn');
-  editBtns.forEach((btn) => {
-    btn.disabled = true;
-  });
-  document.querySelector('#input-field').disabled = true;
 };
 
 const displayList = () => {
