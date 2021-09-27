@@ -12,11 +12,15 @@ h1 {
 }
 
 .display-none {
-  display: none;
+  display: none !important;
 }
 
 .diplay-block {
   display: block;
+}
+
+.description {
+  padding: 6px;
 }
 
 #main-box {
@@ -65,12 +69,17 @@ span {
 
 .buttons {
   font-size: smaller;
-  margin-left: auto;
   display: flex;
   justify-content: flex-end;
+  margin: 5px 0 5px auto;
 }
 
 .buttons button {
   margin-left: 5px;
   padding: 1px 8px;
+}
+
+#save-btn {
+ margin-left: auto;
+ padding: 1px 8px;
 }

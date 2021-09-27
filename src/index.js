@@ -29,19 +29,25 @@ const saveData = (tasks) => {
 const editList = (tasks, task, e) => {
   const originalDesc = e.target.parentElement.parentElement.querySelector('.description');
 
-  const editBox = document.querySelector('#edit-box');
-  editBox.classList.remove('display-none');
+  originalDesc.contentEditable = 'true';
+  originalDesc.focus();
 
-  const editField = document.querySelector('#edit-input');
-  editField.value = originalDesc.textContent;
-  const saveBtn = document.querySelector('#save-btn');
+  const originalButtons = originalDesc.parentElement.querySelector('.buttons');
+
+  originalButtons.classList.add('display-none');
+
+  const saveBtn = document.createElement('button');
+  saveBtn.id = 'save-btn';
+  saveBtn.textContent = 'Save';
+  originalDesc.parentElement.append(saveBtn);
+
   saveBtn.addEventListener('click', () => {
-    const editField = document.querySelector('#edit-input');
-    const input = editField.value;
-    originalDesc.textContent = input;
+    const input = originalDesc.textContent;
+    originalDesc.contentEditable = false;
     tasks = edit(tasks, task, input);
     saveData(tasks);
-    editBox.classList.add('display-none');
+    saveBtn.remove();
+    originalButtons.classList.remove('display-none');
   });
 };
 
