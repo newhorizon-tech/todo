@@ -16,6 +16,10 @@ Features
 - Javascript (ES6)
 - Atom
 
+## Live Demo
+
+[To Do List Demo](https://newhorizon-tech.github.io/todo/dist/)
+
 ## Getting Started
 
 - Clone the repository
