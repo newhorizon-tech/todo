@@ -9,14 +9,11 @@ import {
   clear,
 } from './actions';
 
-let tasks = [];
-
 const getData = () => {
+  let tasks = [];
   const data = localStorage.getItem('tasks');
   if (data != null) {
     tasks = JSON.parse(data);
-  } else {
-    tasks = [];
   }
   return tasks;
 };
@@ -42,107 +39,120 @@ const disableInput = () => {
   document.querySelector('#input-field').disabled = true;
 };
 
-const editList = (tasks, task, e) => {
-  const originalDesc = e.target.parentElement.parentElement.querySelector('.description');
+class TaskList {
+  constructor() {
+    this.tasks = getData();
+  }
 
-  originalDesc.contentEditable = 'true';
-  originalDesc.focus();
+  save() {
+    saveData(this.tasks);
+  }
 
-  const originalButtons = originalDesc.parentElement.querySelector('.buttons');
+  editList(task, e) {
+    const originalDesc = e.target.parentElement.parentElement.querySelector('.description');
 
-  originalButtons.classList.add('display-none');
+    originalDesc.contentEditable = 'true';
+    originalDesc.focus();
 
-  const saveBtn = document.createElement('button');
-  saveBtn.id = 'save-btn';
-  saveBtn.textContent = 'Save';
-  originalDesc.parentElement.append(saveBtn);
+    const originalButtons = originalDesc.parentElement.querySelector('.buttons');
 
-  saveBtn.addEventListener('click', () => {
-    const input = originalDesc.textContent;
-    originalDesc.contentEditable = false;
-    tasks = edit(tasks, task, input);
-    saveData(tasks);
-    saveBtn.remove();
-    originalButtons.classList.remove('display-none');
-    enableInput();
-  });
-};
+    originalButtons.classList.add('display-none');
 
-const displayList = () => {
-  document.querySelector('#input-field').disabled = false;
-  getData(tasks);
-  tasks.sort((a, b) => a.index - b.index);
-  const listElement = document.querySelector('#list');
-  listElement.innerHTML = '';
-  tasks.forEach((task, i) => {
-    const taskElement = document.createElement('li');
+    const saveBtn = document.createElement('button');
+    saveBtn.id = 'save-btn';
+    saveBtn.textContent = 'Save';
+    originalDesc.parentElement.append(saveBtn);
 
-    const check = document.createElement('input');
-    check.type = 'checkbox';
-    check.checked = task.completed;
-
-    check.addEventListener('change', () => {
-      tasks[i] = flip(task);
-      saveData(tasks);
+    saveBtn.addEventListener('click', () => {
+      const input = originalDesc.textContent;
+      originalDesc.contentEditable = false;
+      this.tasks = edit(this.tasks, task, input);
+      this.save();
+      saveBtn.remove();
+      originalButtons.classList.remove('display-none');
+      enableInput();
     });
+  }
 
-    const desc = document.createElement('span');
-    desc.textContent = task.description;
-    desc.className = 'description';
+  displayList() {
+    document.querySelector('#input-field').disabled = false;
+    this.tasks = getData();
+    const listElement = document.querySelector('#list');
+    listElement.innerHTML = '';
+    this.tasks.forEach((task, i) => {
+      const taskElement = document.createElement('li');
 
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
-    editBtn.className = 'edit-btn';
+      const check = document.createElement('input');
+      check.type = 'checkbox';
+      check.checked = task.completed;
 
-    editBtn.addEventListener('click', (e) => {
-      disableInput();
-      editList(tasks, task, e);
+      check.addEventListener('change', () => {
+        this.tasks[i] = flip(task);
+        saveData(this.tasks);
+      });
+
+      const desc = document.createElement('span');
+      desc.textContent = task.description;
+      desc.className = 'description';
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.className = 'edit-btn';
+
+      editBtn.addEventListener('click', (e) => {
+        disableInput();
+        this.editList(task, e);
+      });
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+
+      deleteBtn.addEventListener('click', () => {
+        this.tasks = remove(this.tasks, task);
+        saveData(this.tasks);
+        this.displayList();
+      });
+
+      const buttons = document.createElement('span');
+      buttons.className = 'buttons';
+      buttons.append(editBtn, deleteBtn);
+
+      taskElement.append(check, desc, buttons);
+      listElement.append(taskElement);
     });
+  }
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
+  clearCompleted() {
+    this.tasks = clear(this.tasks);
+    this.save();
+    this.displayList();
+  }
 
-    deleteBtn.addEventListener('click', () => {
-      tasks = remove(tasks, task);
-      saveData(tasks);
-      displayList();
-    });
-
-    const buttons = document.createElement('span');
-    buttons.className = 'buttons';
-    buttons.append(editBtn, deleteBtn);
-
-    taskElement.append(check, desc, buttons);
-    listElement.append(taskElement);
-  });
-};
-
-const formElement = document.querySelector('#input-field');
-
-formElement.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
+  inputTask(formElement) {
     const input = formElement.value;
     formElement.value = '';
-    tasks = add(tasks, input);
-    saveData(tasks);
-    displayList(tasks);
+    this.tasks = add(this.tasks, input);
+    saveData(this.tasks);
+    this.displayList();
   }
-});
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  tasks = getData();
-  displayList();
-});
+  const myTodo = new TaskList();
+  myTodo.displayList();
 
-const refreshBtn = document.querySelector('#refresh');
-refreshBtn.addEventListener('click', () => {
-  saveData(tasks);
-  displayList();
-});
+  const refreshBtn = document.querySelector('#refresh');
+  refreshBtn.addEventListener('click', () => {
+    myTodo.displayList();
+  });
 
-const clearBtn = document.querySelector('#clear-btn');
-clearBtn.addEventListener('click', () => {
-  tasks = clear(tasks);
-  saveData(tasks);
-  displayList();
+  const formElement = document.querySelector('#input-field');
+  formElement.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      myTodo.inputTask(formElement);
+    }
+  });
+
+  const clearBtn = document.querySelector('#clear-btn');
+  clearBtn.addEventListener('click', () => myTodo.clearCompleted());
 });
